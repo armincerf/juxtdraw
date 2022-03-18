@@ -1,18 +1,15 @@
 import React from "react";
 import { Tldraw, TldrawApp, TldrawProps, useFileSystem } from "@tldraw/tldraw";
-import { useAccountHandlers } from "hooks/useAccountHandlers";
 import { exportToImage } from "utils/export";
 
 declare const window: Window & { app: TldrawApp };
 
 interface EditorProps {
   id?: string;
-  isUser?: boolean;
 }
 
 export default function Editor({
   id = "home",
-  isUser = false,
   ...rest
 }: EditorProps & Partial<TldrawProps>) {
   const handleMount = React.useCallback((app: TldrawApp) => {
@@ -29,8 +26,6 @@ export default function Editor({
 
   const fileSystemEvents = useFileSystem();
 
-  const { onSignIn, onSignOut } = useAccountHandlers();
-
   return (
     <div className="tldraw">
       <Tldraw
@@ -38,8 +33,6 @@ export default function Editor({
         autofocus
         onMount={handleMount}
         onPersist={handlePersist}
-        onSignIn={onSignIn}
-        onSignOut={isUser ? onSignOut : undefined}
         onExport={exportToImage}
         {...fileSystemEvents}
         {...rest}

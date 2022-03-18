@@ -17,7 +17,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const id = Date.now().toString();
 
   // Route to a room with that id
-  context.res.setHeader("Location", `/r/${id}`);
+  context.res.setHeader("Location", `/draw/${id}`);
   context.res.statusCode = 307;
 
   // Return id (though it shouldn't matter)
